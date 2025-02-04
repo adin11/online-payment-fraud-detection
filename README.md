@@ -21,7 +21,7 @@ The **Online Fraud Detection App** is a machine learning-powered system designed
 ## 🖼️ Screenshots
 
 *(You can add images here using the following format)*  
-![App Screenshot](Screenshot 2025-02-03 115735.png)
-![App Screenshot](Screenshot 2025-02-04 082434.png)
+![App Screenshot](https://github.com/adin11/online-payment-fraud-detection/blob/main/Screenshot%202025-02-04%20082434.png?raw=true)
+![App Screenshot](https://github.com/adin11/online-payment-fraud-detection/blob/main/Screenshot%202025-02-03%20115735.png?raw=true)
 
 🌟 If you find this project useful, consider giving it a ⭐ on GitHub!
