@@ -2,16 +2,16 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# Load the saved model
+
 @st.cache_resource
 def load_model():
     model_data = joblib.load('fraud_detection_pipeline.pkl')  # Update with your file path
     return model_data
 
-# Page details
+
 st.set_page_config(page_icon='⚡',page_title='Fraud Checker')
 
-# Initialize model and parameters
+
 model_data = load_model()
 loaded_model = model_data['model']
 loaded_features = model_data['features']
@@ -27,7 +27,7 @@ transaction_mapping = {
     "DEBIT": 5
 }
 
-# UI for the Fraud Detection App
+
 st.title("Online Fraud Detection Model")
 st.subheader("Enter the transaction details below:")
 
@@ -37,7 +37,6 @@ with st.expander("Description"):
 """)
 
 
-# Input fields
 transaction_type = st.selectbox(
     "Transaction Type",
     options=list(transaction_mapping.keys()),
@@ -65,7 +64,7 @@ new_balance = st.number_input(
     help="Enter the account balance after the transaction"
 )
 
-# Action button
+
 if st.button("Check"):
     # Validate input values
     if amount <= 0 or old_balance < 0 or new_balance < 0:
@@ -78,16 +77,15 @@ if st.button("Check"):
             columns=loaded_features
         )
         
-        # Debugging: Display input data
+
         st.write("Input Data Sent to Model:")
         st.write(input_data)
         
-        # Predict probabilities and label
         y_pred_prob = loaded_model.predict_proba(input_data)[:, 1][0]
         y_pred_custom = (y_pred_prob >= loaded_threshold).astype(float)
         predicted_label = label_mapping[y_pred_custom]
            
-        # Display prediction results
+
         st.subheader("Prediction Results")
         st.write(f"Probability of fraud: {y_pred_prob:.2f}")
         st.write(f"Fraud Status: {predicted_label}")
