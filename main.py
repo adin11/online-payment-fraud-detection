@@ -5,7 +5,7 @@ import joblib
 
 @st.cache_resource
 def load_model():
-    model_data = joblib.load('fraud_detection_pipeline.pkl')  # Update with your file path
+    model_data = joblib.load('fraud_detection_model.pkl')  # Update with your file path
     return model_data
 
 
@@ -15,7 +15,6 @@ st.set_page_config(page_icon='⚡',page_title='Fraud Checker')
 model_data = load_model()
 loaded_model = model_data['model']
 loaded_features = model_data['features']
-loaded_threshold = model_data['threshold']
 label_mapping = model_data['label_mapping']
 
 # Transaction type mapping
@@ -81,15 +80,20 @@ if st.button("Check"):
         st.write("Input Data Sent to Model:")
         st.write(input_data)
         
-        y_pred_prob = loaded_model.predict_proba(input_data)[:, 1][0]
+
+        y_pred_prob = loaded_model.predict_proba(input_data)[0][1]  # Probability of fraud
+
+
+        loaded_threshold = 0.5
         y_pred_custom = (y_pred_prob >= loaded_threshold).astype(float)
+
+
         predicted_label = label_mapping[y_pred_custom]
-           
+
 
         st.subheader("Prediction Results")
-        st.write(f"Probability of fraud: {y_pred_prob:.2f}")
+        st.write(f"Probability of fraud: {y_pred_prob:.2f}") 
         st.write(f"Fraud Status: {predicted_label}")
-
 
 
 
