@@ -8,9 +8,7 @@ def load_model():
     model_data = joblib.load('fraud_detection_model.pkl')  # Update with your file path
     return model_data
 
-
 st.set_page_config(page_icon='⚡',page_title='Fraud Checker')
-
 
 model_data = load_model()
 loaded_model = model_data['model']
