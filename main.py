@@ -92,7 +92,3 @@ if st.button("Check"):
         st.subheader("Prediction Results")
         st.write(f"Probability of fraud: {y_pred_prob:.2f}") 
         st.write(f"Fraud Status: {predicted_label}")
-
-
-
-        
