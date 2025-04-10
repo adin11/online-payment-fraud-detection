@@ -24,15 +24,13 @@ transaction_mapping = {
     "DEBIT": 5
 }
 
-
-st.title("Online Fraud Detection Model")
+st.title("Online Payment Fraud Detection System")
 st.subheader("Enter the transaction details below:")
 
 with st.expander("Description"):
     st.info("""
 **Note**: This app uses a machine learning model to predict the likelihood of a transaction being fraudulent based on the provided inputs. Always exercise caution when using predictions for decision-making.
 """)
-
 
 transaction_type = st.selectbox(
     "Transaction Type",
@@ -42,25 +40,24 @@ transaction_type = st.selectbox(
 
 amount = st.number_input(
     "Transaction Amount",
-    min_value=0.0,
-    step=0.01,
+    min_value=0,
+    step=1,
     help="Enter the transaction amount"
 )
 
 old_balance = st.number_input(
     "Old Balance (Origin)",
-    min_value=0.0,
-    step=0.01,
+    min_value=0,
+    step=1,
     help="Enter the account balance before the transaction"
 )
 
 new_balance = st.number_input(
     "New Balance (Origin)",
-    min_value=0.0,
-    step=0.01,
+    min_value=0,
+    step=1,
     help="Enter the account balance after the transaction"
 )
-
 
 if st.button("Check"):
     # Validate input values
@@ -73,21 +70,16 @@ if st.button("Check"):
             [[transaction_type_encoded, amount, old_balance, new_balance]],
             columns=loaded_features
         )
-        
-
-        st.write("Input Data Sent to Model:")
+       
+        st.write("Input Data Sent to Model: 📤")
         st.write(input_data)
         
-
         y_pred_prob = loaded_model.predict_proba(input_data)[0][1]  # Probability of fraud
-
 
         loaded_threshold = 0.5
         y_pred_custom = (y_pred_prob >= loaded_threshold).astype(float)
 
-
         predicted_label = label_mapping[y_pred_custom]
-
 
         st.subheader("Prediction Results")
         st.write(f"Probability of fraud: {y_pred_prob:.2f}") 
